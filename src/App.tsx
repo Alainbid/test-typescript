@@ -1,56 +1,83 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Message from "./components/Message";
 import { MessageInt } from "./Model";
 import "../src/App.css";
+import { useForm } from "react-hook-form";
+import SendIcon from "@mui/icons-material/Send";
+import Button from "@mui/material/Button";
 
 const App = () => {
-  const inputMessage = useRef<HTMLInputElement>(null);
-  const inputNom = useRef<HTMLInputElement>(null);
+  const [errors, setErrors] = useState(false);
   const [messageData, setMessageData] = useState<MessageInt[]>([]);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
 
-  const handleSumit = (e: any) => {
-    e.preventDefault();
-    if (inputMessage) {
-      const mess: MessageInt = {
-        id: Math.round(Math.random() * Date.now()),
-        nom: inputNom.current?.value,
-        message: inputMessage.current?.value.toString(),
-        date: Date.now(),
-      };
-     
-       setMessageData((messageData) => [...messageData, mess]);
-      //  setMessageData((dataActuelles) => [...dataActuelles, mess]);
-    }
-    (document.getElementById("inputMessage") as HTMLInputElement).value = "";
-    (document.getElementById("name") as HTMLInputElement).value = "";
+  useEffect(() => {
+    reset({
+      leMessage: "",
+      leNom: "",
+    });
+    setErrors(false);
+  }, [isSubmitSuccessful, reset]);
+
+  const onError = (erreurs: any, e: any) => {
+    
+    erreurs ? console.log("erreurs ", errors) : console.log("ok");
+
+    setIsSubmitSuccessful(false);
   };
 
+  const onSubmit = (data: any, e: any) => {
+    e.preventDefault();
+    console.log("data", data, e);
+    const mess: any = {
+      id: Math.round(Math.random() * Date.now()),
+      nom: data.leNom,
+      message: data.leMessage,
+      date: Date.now(),
+    };
+    setIsSubmitSuccessful(true);
+    setMessageData((messageData) => [...messageData, mess]);
+    reset();
+  };
 
   return (
     <div>
-      <h1>POSTER UN MESSAGE</h1>
-      <form
-        onSubmit={(e) => {
-          handleSumit(e);
-        }}
-      >
-        <input type="nom" placeholder="Nom" id="name" ref={inputNom} />
+      <h1>POSTER UN MESSAGE ...</h1>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <input
-          type="text"
-          placeholder="Votre message"
-          id="inputMessage"
-          ref={inputMessage}
+          type="name"
+          placeholder="Nom"
+          id="name"
+          className="name"
+          {...register("leNom", { required: true })}
         />
-        <input type="submit" value="Envoyer" />
+
+        <textarea
+          placeholder="Votre message"
+          id="leMessage"
+          {...register("leMessage", { required: true, maxLength: 1000 })}
+        />
+        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+          Envoyer
+        </Button>
+        <br></br>
       </form>
-      <h2>Liste des messages</h2>
-      <div> { messageData?.map((lesMess) => 
-      (<Message mess={lesMess} messageData={messageData}
-       setMessageData={setMessageData}
-        key={lesMess.id}/>)) }
-      </div> 
-  </div>
- 
-);
-      };
+      <div className="list-message">
+        <h2>Liste des messages</h2>
+        <div>
+          {" "}
+          {messageData?.map((lesMess) => (
+            <Message
+              mess={lesMess}
+              messageData={messageData}
+              setMessageData={setMessageData}
+              key={lesMess.id}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 export default App;

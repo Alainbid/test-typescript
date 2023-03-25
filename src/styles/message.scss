@@ -1,7 +1,18 @@
-.messagecontainer{
-      background: #bebebc;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    width: 300px;
+.message-container {
+  background: #e3dfd2;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+  border-radius: 20px;
+}
+#delete{
+  font-size: 1.5rem;
+  background: #ccccc1;
+  margin: 10px;
+  border-radius: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
 }

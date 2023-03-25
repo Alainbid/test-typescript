@@ -13,40 +13,38 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-form{
+form {
   background: #bebebc;
-margin: 20px;
-display: flex;
-flex-direction: column;
-width: 300px;
+  margin: 31px;
+  display: flex;
+  flex-direction: column;
+  width: 492px;
+  border-radius: 20px;
 }
-input{
-  margin: 6px;
-font-size: 1.2rem;
+input {
+  margin: 13px;
+  font-size: 1.2rem;
 }
-#inputMessage{
-  height: 80px;
+textarea {
+  height: 180px;
+  margin: 20px;
+  font-size: 1rem;
+}
+button {
+ 
+  align-self: center;
+  width: 140px;
+  margin: auto;
+ 
+}
+.list-message{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
