@@ -13,8 +13,10 @@ type Props = {
   setMessageData: React.Dispatch<React.SetStateAction<MessageInt[]>>;
 };
 const Message = ({ mess, messageData, setMessageData }: Props) => {
+
+
   const formaterDate = (date: number) => {
-    return new Date(date).toLocaleDateString("FR-fr");
+    return new Date(date).toLocaleString("FR-fr");
   };
 
   const handleDelete = () => {
@@ -23,11 +25,10 @@ const Message = ({ mess, messageData, setMessageData }: Props) => {
 
   return (
     <div className="message-container">
-      <p />
-      {formaterDate(mess.date)}
-      <br></br> {" key "} {mess.id} <br />
-      {mess.nom} <br />
+      <i> Mon message du : {formaterDate(mess.date)} </i> 
+      <div className="letexte">
       {mess.message}
+      </div>
       <Tooltip title="Delete">
         <IconButton onClick={() => handleDelete()}>
           <DeleteIcon />
