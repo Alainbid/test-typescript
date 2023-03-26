@@ -28,7 +28,7 @@ form {
   border-radius: 20px;
 }
 input {
-  margin: 13px;
+  margin: 18px 20px 5px 20px;
   font-size: 1.2rem;
 }
 textarea {
@@ -47,4 +47,9 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+i{font-size:0.9rem;
+  padding-left: 30px;
+  color:red;
+  margin-bottom: 20px;
 }

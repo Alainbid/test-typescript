@@ -7,7 +7,6 @@ import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 
 const App = () => {
-
   const [messageData, setMessageData] = useState<MessageInt[]>([]);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
   const {
@@ -23,8 +22,8 @@ const App = () => {
     reset({
       leMessage: "",
       leNom: "",
+      leEmail: "",
     });
-   
   }, [isSubmitSuccessful, reset]);
 
   const onError = (errors: any, e: any) => {
@@ -38,6 +37,7 @@ const App = () => {
     const mess: any = {
       id: Math.round(Math.random() * Date.now()),
       nom: data.leNom,
+      email: data.leEmail,
       message: data.leMessage,
       date: Date.now(),
     };
@@ -51,29 +51,45 @@ const App = () => {
       <h1>POSTER UN MESSAGE ...</h1>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <input
+          autoComplete="off"
           type="text"
-          placeholder="Nom"
+          placeholder="Votre Nom ou Prénom"
           id="name"
           className="name"
-          {...register("leNom", 
-          
-          {  minLength: {
+          {...register("leNom", {
+            minLength: {
               value: 3,
-              message: "⚠ 3 caractères minimum",
+              message: "⚠ le nom doit avoir plus de 3 caractères",
             },
-            required : "Veuillez indiquer votre nom"}
-          )}
+            required: "⚠ Veuillez indiquer votre nom",
+          })}
         />
-{errors.leNom && <i>{errors.leNom.message?.toString()}</i>}
+        {errors.leNom && <i> {errors.leNom.message?.toString()}</i>}
+
+        <input
+          type="email"
+          placeholder="Votre Email"
+          id="email"
+          className="email"
+          {...register("leEmail", {
+            pattern: {
+              value: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/,
+              message: "⚠ doit contenir les caractères standards un . et un @ ",
+            },
+            required: "⚠ Veuillez indiquer votre email",
+          })}
+        />
+        {errors.leEmail && <i> {errors.leEmail.message?.toString()}</i>}
+
         <textarea
           placeholder="Votre message"
           id="leMessage"
-          {...register("leMessage", { minLength :
-            { value:12, message:" 12 caractères minimum" },
-            required : "Veuillez rédiger votre message"
+          {...register("leMessage", {
+            minLength: { value: 12, message: "⚠  12 caractères minimum" },
+            required: "⚠ Veuillez rédiger votre message",
           })}
         />
-{ errors.leMessage && <p>{errors.leMessage.message?.toString()}</p> }
+        {errors.leMessage && <i> {errors.leMessage.message?.toString()}</i>}
 
         <Button type="submit" variant="contained" endIcon={<SendIcon />}>
           Envoyer
@@ -81,7 +97,6 @@ const App = () => {
         <br></br>
       </form>
 
-      
       <div className="list-message">
         <h2>Liste des messages</h2>
         <div>
