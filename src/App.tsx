@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Message from "./components/Message";
-import { MessageInt } from "./Model";
+import { MessageInt } from "./components/Model";
 import "../src/App.css";
 import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
