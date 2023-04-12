@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import emailjs from "@emailjs/browser";
+import Navbarre from "../components/Navbar";
 
-const App = () => {
+const Contact = () => {
   const [show, setShow] = useState(false);
   const [messageData, setMessageData] = useState<MessageInt[]>([]);
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
@@ -79,6 +80,7 @@ const App = () => {
 
   return (
     <div>
+      <Navbarre></Navbarre>
       <h1>POSTER UN MESSAGE ...</h1>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="field">
@@ -150,4 +152,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default Contact;
