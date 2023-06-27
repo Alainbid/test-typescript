@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../styles/calendar.scss";
-import { Hidden } from "@mui/material";
 
 
 const Calendar = () => {
